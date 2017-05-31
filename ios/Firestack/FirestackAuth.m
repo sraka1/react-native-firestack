@@ -318,6 +318,23 @@ RCT_EXPORT_METHOD(getToken:(RCTResponseSenderBlock) callback)
     }
 }
 
+RCT_EXPORT_METHOD(sendEmailVerification:(RCTResponseSenderBlock) callback)
+{
+    FIRUser *user = [FIRAuth auth].currentUser;
+    
+    if (user) {
+        [user sendEmailVerificationWithCompletion:^(NSError *_Nullable error) {
+            if (error) {
+                [self userErrorCallback:callback error:error user:user msg:@"sendEmailVerificationError"];
+            } else {
+                callback(@[[NSNull null], @{@"result": @(true)}]);
+            }
+        }];
+    } else {
+        [self noUserCallback:callback isError:true];
+    }
+}
+
 RCT_EXPORT_METHOD(getTokenWithCompletion:(RCTResponseSenderBlock) callback)
 {
     FIRUser *user = [FIRAuth auth].currentUser;
