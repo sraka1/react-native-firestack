@@ -111,7 +111,9 @@ RCT_EXPORT_METHOD(signOut:(RCTResponseSenderBlock)callback)
         NSDictionary *err = @{
                               @"error": @"Signout error",
                               @"name": @([error code]),
-                              @"description": [error description]
+                              @"description": [error description],
+                              @"code": @([error code]),
+                              @"message": [error description]
                               };
         callback(@[err]);
     }
@@ -196,10 +198,12 @@ RCT_EXPORT_METHOD(createUserWithEmail:(NSString *)email
          if (user != nil) {
              [self userCallback:callback user:user];
          } else {
-             NSDictionary *err = @{
+              NSDictionary *err = @{
                                    @"error": @"createUserWithEmailError",
                                    @"name": @([error code]),
-                                   @"description": [error localizedDescription]
+                                   @"description": [error localizedDescription],
+                                   @"code": @([error code]),
+                                   @"message": [error localizedDescription]
                                    };
              callback(@[err]);
          }
@@ -272,7 +276,9 @@ RCT_EXPORT_METHOD(sendPasswordResetWithEmail:(NSString *)email
                                             // An error happened.
                                             NSDictionary *err = @{
                                                                   @"error": @"sendPasswordResetWithEmailError",
-                                                                  @"description": error.localizedDescription
+                                                                  @"description": [error localizedDescription],
+                                                                  @"code": @([error code]),
+                                                                  @"message": [error localizedDescription]
                                                                   };
                                             callback(@[err]);
                                         } else {

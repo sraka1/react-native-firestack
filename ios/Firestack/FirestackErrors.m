@@ -54,6 +54,7 @@ RCT_EXPORT_MODULE(FirestackErrors);
             break;
     }
     [err setValue:description forKey:@"description"];
+    [err setValue:description forKey:@"message"];
     return [NSDictionary dictionaryWithDictionary:err];
 }
 
