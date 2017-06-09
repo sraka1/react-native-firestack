@@ -320,7 +320,8 @@ public class FirestackAuth extends ReactContextBaseJavaModule {
                 resp.putString("status", "complete");
                 callback.invoke(null, resp);
               } else {
-                callback.invoke(task.getException().toString());
+                userErrorCallback(task, callback);
+                //callback.invoke(task.getException().toString());
               }
             } catch (Exception ex) {
               userExceptionCallback(ex, callback);
